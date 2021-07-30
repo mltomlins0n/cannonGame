@@ -1,4 +1,4 @@
 public interface IShot {
 
-    String calculateShot();
+    String calculateShot(int angle, int velocity);
 }
