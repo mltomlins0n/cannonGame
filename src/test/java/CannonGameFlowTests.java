@@ -11,7 +11,8 @@ public class CannonGameFlowTests {
         //when: I call flowClass method
         ITargetGenerator mockTargetGenerator = mock(ITargetGenerator.class);
         IShot mockShot = mock(IShot.class);
-        ICannonGameFlow cannonGameFlow = new CannonGameFlow(mockTargetGenerator, mockShot);
+        IIntegerChecker mockIntegerChecker = mock(IIntegerChecker.class);
+        ICannonGameFlow cannonGameFlow = new CannonGameFlow(mockTargetGenerator, mockShot, mockIntegerChecker);
         given(mockTargetGenerator.getTarget()).willReturn("");
         cannonGameFlow.flow("45", "1");
         //then: target method called once
@@ -26,15 +27,28 @@ public class CannonGameFlowTests {
         //when: I call flowClass
         ITargetGenerator mockTargetGenerator = mock(ITargetGenerator.class);
         IShot mockShot = mock(IShot.class);
-        ICannonGameFlow cannonGameFlow = new CannonGameFlow(mockTargetGenerator, mockShot);
-        cannonGameFlow.flow(velocity, angle);
+        IIntegerChecker mockIntegerChecker = mock(IIntegerChecker.class);
+        ICannonGameFlow cannonGameFlow = new CannonGameFlow(mockTargetGenerator, mockShot, mockIntegerChecker);
+        given(mockShot.calculateShot()).willReturn("");
+        cannonGameFlow.flow(angle, velocity);
         //then: shot method is called
         verify(mockShot).calculateShot();
     }
 
-    //given: i enter a velocity and angle
-    //when: I call flowClass
-    //then: IntegerChecker is called
+    @Test
+    public void givenVelocityAndAngleThenIntCheck() {
+        //given: i enter a velocity and angle
+        String velocity = "1";
+        String angle = "45";
+        //when: I call flowClass
+        ITargetGenerator mockTargetGenerator = mock(ITargetGenerator.class);
+        IShot mockShot = mock(IShot.class);
+        IIntegerChecker mockIntegerChecker = mock(IIntegerChecker.class);
+        ICannonGameFlow cannonGameFlow = new CannonGameFlow(mockTargetGenerator, mockShot, mockIntegerChecker);
+        cannonGameFlow.flow(angle, velocity);
+        //then: IntegerChecker method is called
+        verify(mockIntegerChecker).isInt(angle, velocity);
+    }
 
     //given: I have a valid shot
     //when: i call my flowClass method
