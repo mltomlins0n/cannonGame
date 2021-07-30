@@ -20,10 +20,10 @@ Objects to make:
     Then:it is created with the x and y coordinates
 
 
-Create a class to round final output from given velocity and angle
-given: i have a velocity and angle
-when the velocity is 1.5 and angle 45
-then:  rounded down to (1,1)
+    Create a class to round final output from given velocity and angle
+    Given: i have a velocity and angle
+    When the velocity is 1.5 and angle 45
+    Then:  rounded down to (1,1)
 
 flow Class
     given: I start a game
