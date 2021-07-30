@@ -15,9 +15,9 @@ Objects to make:
         No test
 
 
-Given: I need a target
-When: I create target with an x and y
-Then: it is created with the x and y coordinates
+    Given: I need a target
+    When:I create target with an x and y
+    Then:it is created with the x and y coordinates
 
 
 Create a class to round final output from given velocity and angle
