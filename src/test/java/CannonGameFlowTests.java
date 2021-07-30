@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
-public class CannonGameTests {
+public class CannonGameFlowTests {
 
     @Test
     public void givenGameStartThenGetTarget() {
