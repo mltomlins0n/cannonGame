@@ -45,6 +45,7 @@ public class CannonGameFlowTests {
         IShot mockShot = mock(IShot.class);
         IIntegerChecker mockIntegerChecker = mock(IIntegerChecker.class);
         ICannonGameFlow cannonGameFlow = new CannonGameFlow(mockTargetGenerator, mockShot, mockIntegerChecker);
+        given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
         cannonGameFlow.flow(angle, velocity);
         //then: IntegerChecker method is called
         verify(mockIntegerChecker).isInt(angle, velocity);
