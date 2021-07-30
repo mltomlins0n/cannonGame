@@ -1,0 +1,107 @@
+Objects to make:
+    Target generator - generate a target
+        No test
+    Shot - calculate the x y
+        No test
+    judge - judge if it missed or hit
+        Test
+    flow
+        Test
+    IntegerChecker
+        Test
+    counter
+        No test
+    rounder for output from velocity and angle
+        No test
+
+
+Given: I need a target
+When: I create target with an x and y
+Then: it is created with the x and y coordinates
+
+
+Create a class to round final output from given velocity and angle
+given: i have a velocity and angle
+when the velocity is 1.5 and angle 45
+then:  rounded down to (1,1)
+
+flow Class
+    given: I start a game
+    when: I call flowClass method
+    then: target method called once
+
+    given: I enter a velocity and angle
+    when: I call flowClass
+    then: shot method is called
+
+    given: i enter a velocity and angle
+    when: I call flowClass
+    then: IntegerChecker is called
+
+    given: I have a valid shot
+    when: i call my flowClass method
+    then: the judge method is called
+
+    given: I have a miss
+    When: I call flowClass
+    then: 1 is added to the counter
+
+    given: I have a shot that hits
+    when: I call flowClass
+    then: the counter is returned
+
+    given: You have an invalid input
+    When: flowClass
+    Then: judge is never called
+
+    given: you have an invalid input
+    when: flowClass
+    then: Shot is never called
+
+    Given: I am a  user
+    When: the flow is called
+    Then: the target is created
+
+    Given: i have an input for a shot
+    when: i call flow
+    then: judge is called
+
+target
+     Given: I want to play the game
+     When: the game is started
+     Then: a target is created with (x,y) between 1 and 10
+
+options
+    mock target want to be able to set x,y
+    need ability to set target values
+    accept values in the constructor
+    getters and setters variable declaration
+    calling a method
+
+shot
+
+Given: I have a velocity and angle
+When: I input a velocity 0 and an angle 90
+Then: shot lands at 0,0;
+
+judge
+
+Given: I have a shot and a target
+When: the shot lands
+Then: the shot is determined to be a a hit or miss
+
+Given: i have a shot and target
+When: i have a shot (1,1) and target (1,1)
+Then: it returns true
+
+given: i have a shot and a a target
+when: i have a shot (1,1) and target(2,2)
+then: return false
+
+given: I have a shot and a target
+when: I have a shot (1,11) and target (2,2)
+then: A funny response about how you are bad at the game
+
+InputHandler
+
+output... thing
