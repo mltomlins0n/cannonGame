@@ -2,14 +2,17 @@ import java.util.Arrays;
 
 public class CannonGameFlow implements ICannonGameFlow {
 
+
+    private IShotCounter _shotCounter;
     private ITargetGenerator _targetGenerator;
     private IShot _shot;
     private IIntegerChecker _integerChecker;
     private IJudge _judgeShot;
     private IInputValidator _inputValidator;
 
-    public CannonGameFlow(ITargetGenerator _targetGenerator, IShot _shot,
+    public CannonGameFlow(IShotCounter _shotCounter, ITargetGenerator _targetGenerator, IShot _shot,
                           IIntegerChecker _integerChecker, IJudge _judgeShot, IInputValidator _inputValidator) {
+        this._shotCounter = _shotCounter;
         this._targetGenerator = _targetGenerator;
         this._shot = _shot;
         this._integerChecker = _integerChecker;
@@ -20,6 +23,9 @@ public class CannonGameFlow implements ICannonGameFlow {
     public String flow(String angle, String velocity) {
         int[] target = _targetGenerator.getTarget();
         boolean result = _integerChecker.isInt(angle, velocity);
+        int shotCounter = 0;
+        _shotCounter.incrementCounter();
+        System.out.println(_shotCounter.getCounter());
         if (result) {
             int validInputAngle = Integer.parseInt(angle);
             int validInputVelocity = Integer.parseInt(velocity);
