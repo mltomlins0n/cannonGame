@@ -69,6 +69,7 @@ public class CannonGameFlowTests {
         int[] testShot = {1, 2};
         int[] testTarget = {1, 2};
         //verify(mockJudge).judgeShot(testShot, testTarget);
+        // todo: fix so judge method is called
     }
 
     //given: I have a miss
@@ -85,13 +86,6 @@ public class CannonGameFlowTests {
         String angle = "91";
         String velocity = "0";
         //when: I call flowClass
-        ITargetGenerator mockTargetGenerator = mock(ITargetGenerator.class);
-        IShot mockShot = mock(IShot.class);
-        IIntegerChecker mockIntegerChecker = mock(IIntegerChecker.class);
-        IJudge mockJudge = mock(IJudge.class);
-        IInputValidator mockInputValidator = mock(IInputValidator.class);
-        ICannonGameFlow cannonGameFlow = new CannonGameFlow(mockTargetGenerator,
-                mockShot, mockIntegerChecker, mockJudge, mockInputValidator);
         given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
         cannonGameFlow.flow(angle, velocity);
         //then: the judge method is never called
@@ -104,13 +98,6 @@ public class CannonGameFlowTests {
         String angle = "abc";
         String velocity = "def";
         //when: I call flowClass
-        ITargetGenerator mockTargetGenerator = mock(ITargetGenerator.class);
-        IShot mockShot = mock(IShot.class);
-        IIntegerChecker mockIntegerChecker = mock(IIntegerChecker.class);
-        IJudge mockJudge = mock(IJudge.class);
-        IInputValidator mockInputValidator = mock(IInputValidator.class);
-        ICannonGameFlow cannonGameFlow = new CannonGameFlow(mockTargetGenerator,
-                mockShot, mockIntegerChecker, mockJudge, mockInputValidator);
         given(mockIntegerChecker.isInt(angle, velocity)).willReturn(false);
         cannonGameFlow.flow(angle, velocity);
         //then: the shot method is never called
