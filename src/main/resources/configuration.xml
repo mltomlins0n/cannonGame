@@ -8,6 +8,7 @@
     http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="flowClassConfig"   class="CannonGameFlow">
+        <constructor-arg ref="shotCounter"/>
         <constructor-arg ref="targetGenerator"/>
         <constructor-arg ref="shot"/>
         <constructor-arg ref="integerChecker"/>
@@ -15,6 +16,7 @@
         <constructor-arg ref="inputValidator"/>
     </bean>
 
+    <bean id="shotCounter" class="ShotCounter"> </bean>
     <bean id="targetGenerator" class="TargetGenerator"> </bean>
     <bean id="shot" class="Shot"> </bean>
     <bean id="integerChecker" class="IntegerChecker"> </bean>
