@@ -10,15 +10,15 @@ public class Main {
         ICannonGameFlow fClass = context.getBean("flowClassConfig", ICannonGameFlow.class);
 
         Scanner sc = new Scanner(System.in);
-        System.out.print("Please enter an velocity ");
+        System.out.print("Please enter an angle between 1-90 and a velocity between 1-20: ");
 
-        System.out.print("Please enter an angle ");
 
         while (true) {
-            String input = sc.next();
-            //String result = fClass.flow(input);
-            //System.out.println(result);
-            if(input.equalsIgnoreCase("quit")){
+            String inputX = sc.next();
+            String inputY = sc.next();
+            String result = fClass.flow(inputX,inputY);
+            System.out.println("You have fired at: " + result);
+            if(inputX.equalsIgnoreCase("quit")){
                 break;
             }
         }
