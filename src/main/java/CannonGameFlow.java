@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class CannonGameFlow implements ICannonGameFlow {
 
     private ITargetGenerator _targetGenerator;
@@ -21,11 +23,15 @@ public class CannonGameFlow implements ICannonGameFlow {
         if (result) {
             int validInputAngle = Integer.parseInt(angle);
             int validInputVelocity = Integer.parseInt(velocity);
-            int[] shot = _shot.calculateShot(Integer.parseInt(angle), Integer.parseInt(velocity));
+            int[] shot = _shot.calculateShot(validInputAngle, validInputVelocity);
 
             boolean judgeResult = _judgeShot.judgeShot(target,shot);
+
+            return Arrays.toString(shot);
         }
-        return "Please enter valid values for angle and velocity.";
+        else {
+            return "Please enter valid values for angle and velocity.";
+        }
     }
 
 }
