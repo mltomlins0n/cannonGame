@@ -16,9 +16,6 @@ public class TargetGenerator implements ITargetGenerator {
         target[1] = Math.round(yTarget);
         System.out.println(Arrays.toString(target));
 
-        //while (target[0] > 10 || target[1] >10 );
-
         return target;
-
     }
 }
