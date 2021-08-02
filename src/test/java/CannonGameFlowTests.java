@@ -38,13 +38,13 @@ public class CannonGameFlowTests {
     @Test
     public void givenVelocityAndAngleThenShot() {
         //given: I enter a velocity and angle
-        String angle = "1";
-        String velocity = "45";
+        String angle = "45";
+        String velocity = "1";
         //when: I call flowClass
         //then: shot method is called
         System.out.println(cannonGameFlow.flow(angle, velocity));
         // todo: fix IntegerChecker so it returns true for valid input
-        //verify(mockShot).calculateShot(45, 1);
+        verify(mockShot).calculateShot(45, 1);
     }
 
     @Test
