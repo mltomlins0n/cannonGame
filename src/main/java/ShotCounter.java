@@ -9,4 +9,8 @@ public class ShotCounter implements IShotCounter {
     public int getCounter(){
         return  counter;
     }
+    @Override
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
 }
