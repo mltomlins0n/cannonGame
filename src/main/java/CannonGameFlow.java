@@ -6,7 +6,8 @@ public class CannonGameFlow implements ICannonGameFlow {
     private IJudge _judgeShot;
     private IInputValidator _inputValidator;
 
-    public CannonGameFlow(ITargetGenerator _targetGenerator, IShot _shot, IIntegerChecker _integerChecker, IJudge _judgeShot, IInputValidator _inputValidator) {
+    public CannonGameFlow(ITargetGenerator _targetGenerator, IShot _shot,
+                          IIntegerChecker _integerChecker, IJudge _judgeShot, IInputValidator _inputValidator) {
         this._targetGenerator = _targetGenerator;
         this._shot = _shot;
         this._integerChecker = _integerChecker;
