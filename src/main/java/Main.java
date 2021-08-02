@@ -9,12 +9,12 @@ public class Main {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("configuration.xml");
         ICannonGameFlow fClass = context.getBean("flowClassConfig", ICannonGameFlow.class);
+
         TargetGenerator targetGenerator = new TargetGenerator();
 
         Scanner sc = new Scanner(System.in);
         System.out.println("\nTarget is at: " + Arrays.toString(targetGenerator.getTarget()));
         System.out.print("Please enter an angle between 1-90 and a velocity between 1-20: ");
-
 
         while (true) {
             String inputX = sc.next();
