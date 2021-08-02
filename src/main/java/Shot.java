@@ -5,14 +5,13 @@ public class Shot implements IShot {
 
         double angleDegrees = inputAngle * (Math.PI / 180);
 
-        int xShot = (int) (inputVelocity * (Math.cos(angleDegrees)));
-        int yShot = (int) (inputVelocity * (Math.sin(angleDegrees)));
+        long xShot = Math.round((inputVelocity * (Math.cos(angleDegrees))));
+        long yShot = Math.round((inputVelocity * (Math.sin(angleDegrees))));
 
         int[] shot = new int[2];
-        shot[0] = Math.round(xShot);
-        shot[1] = Math.round(yShot);
+        shot[0] = (int)xShot;
+        shot[1] = (int)yShot;
 
         return shot;
     }
-
 }
