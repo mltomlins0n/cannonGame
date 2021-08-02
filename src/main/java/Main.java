@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("configuration.xml");
-        ICannonGameFlow fClass = context.getBean("flowClassConfig",FlowClass.class);
+        ICannonGameFlow fClass = context.getBean("flowClassConfig", ICannonGameFlow.class);
 
         Scanner sc = new Scanner(System.in);
         System.out.print("Please enter an velocity ");
@@ -16,8 +16,8 @@ public class Main {
 
         while (true) {
             String input = sc.next();
-            String result = fClass.flow(input);
-            System.out.println(result);
+            //String result = fClass.flow(input);
+            //System.out.println(result);
             if(input.equalsIgnoreCase("quit")){
                 break;
             }
