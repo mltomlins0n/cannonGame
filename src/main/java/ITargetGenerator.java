@@ -1,4 +1,4 @@
 public interface ITargetGenerator {
 
-    String getTarget();
+    int[] getTarget();
 }
