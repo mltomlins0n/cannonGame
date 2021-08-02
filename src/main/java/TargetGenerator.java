@@ -4,16 +4,12 @@ public class TargetGenerator implements ITargetGenerator {
 
     @Override
     public int[] getTarget() {
-        int randVelocity = (int) (Math.random() * 20) + 1;
-        int randAngle = (int) (Math.random() * 90) + 1;
-        double angleDegrees = randAngle * (Math.PI / 180);
-
-        int xTarget = (int) (randVelocity * (Math.cos(angleDegrees)));
-        int yTarget = (int) (randVelocity * (Math.sin(angleDegrees)));
+        int randX = (int) (Math.random() * 11) + 1;
+        int randY = (int) (Math.random() * 11) + 1;
 
         int[] target = new int[2];
-        target[0] = Math.round(xTarget);
-        target[1] = Math.round(yTarget);
+        target[0] = Math.round(randX);
+        target[1] = Math.round(randY);
 
         return target;
     }
