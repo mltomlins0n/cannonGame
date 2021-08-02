@@ -22,16 +22,16 @@ public class CannonGameFlowTests {
     @Test
     public void givenVelocityAndAngleThenShot() {
         //given: I enter a velocity and angle
-        String angle = "1";
-        String velocity = "45";
+        String inputAngle = "1";
+        String inputVelocity = "45";
         //when: I call flowClass
         ITargetGenerator mockTargetGenerator = mock(ITargetGenerator.class);
         IShot mockShot = mock(IShot.class);
         IIntegerChecker mockIntegerChecker = mock(IIntegerChecker.class);
         ICannonGameFlow cannonGameFlow = new CannonGameFlow(mockTargetGenerator, mockShot, mockIntegerChecker);
-        cannonGameFlow.flow(angle, velocity);
+        cannonGameFlow.flow(inputAngle, inputVelocity);
         //then: shot method is called
-        System.out.println(cannonGameFlow.flow(angle, velocity));
+        System.out.println(cannonGameFlow.flow(inputAngle, inputVelocity));
         // todo: fix IntegerChecker so it returns true for valid input
         //verify(mockShot).calculateShot(45, 1);
     }
