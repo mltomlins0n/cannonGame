@@ -8,6 +8,7 @@ import static org.mockito.Mockito.*;
 
 public class CannonGameFlowTests {
 
+    IShotCounter mockShotCounter;
     ITargetGenerator mockTargetGenerator;
     IShot mockShot;
     IIntegerChecker mockIntegerChecker;
@@ -22,7 +23,7 @@ public class CannonGameFlowTests {
         mockIntegerChecker = mock(IIntegerChecker.class);
         mockJudge = mock(IJudge.class);
         mockInputValidator = mock(IInputValidator.class);
-        cannonGameFlow = new CannonGameFlow(mockTargetGenerator,
+        cannonGameFlow = new CannonGameFlow(mockShotCounter, mockTargetGenerator,
                 mockShot, mockIntegerChecker, mockJudge, mockInputValidator);
     }
 
