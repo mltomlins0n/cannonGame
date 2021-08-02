@@ -22,7 +22,7 @@ public class CannonGameFlow implements ICannonGameFlow {
             int validInputVelocity = Integer.parseInt(velocity);
             int[] shot = _shot.calculateShot(Integer.parseInt(angle), Integer.parseInt(velocity));
 
-            boolean judgeResult = _judgeShot.doesTheShotMatchTheTarget(target,shot);
+            boolean judgeResult = _judgeShot.judgeShot(target,shot);
         }
         return "Please enter valid values for angle and velocity.";
     }

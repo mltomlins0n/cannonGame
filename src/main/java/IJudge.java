@@ -1,3 +1,3 @@
 public interface IJudge {
-    boolean doesTheShotMatchTheTarget( int [] shot, int [] target);
+    boolean judgeShot( int[] shot, int[] target);
 }
