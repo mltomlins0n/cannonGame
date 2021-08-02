@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 
@@ -7,17 +8,28 @@ import static org.mockito.Mockito.*;
 
 public class CannonGameFlowTests {
 
+    ITargetGenerator mockTargetGenerator;
+    IShot mockShot;
+    IIntegerChecker mockIntegerChecker;
+    IJudge mockJudge;
+    IInputValidator mockInputValidator;
+    ICannonGameFlow cannonGameFlow;
+
+    @BeforeEach
+    public void setup() {
+        mockTargetGenerator = mock(ITargetGenerator.class);
+        mockShot = mock(IShot.class);
+        mockIntegerChecker = mock(IIntegerChecker.class);
+        mockJudge = mock(IJudge.class);
+        mockInputValidator = mock(IInputValidator.class);
+        cannonGameFlow = new CannonGameFlow(mockTargetGenerator,
+                mockShot, mockIntegerChecker, mockJudge, mockInputValidator);
+    }
+
     @Test
     public void givenGameStartThenGetTarget() {
         //given: I start a game
         //when: I call flowClass method
-        ITargetGenerator mockTargetGenerator = mock(ITargetGenerator.class);
-        IShot mockShot = mock(IShot.class);
-        IIntegerChecker mockIntegerChecker = mock(IIntegerChecker.class);
-        IJudge mockJudge = mock(IJudge.class);
-        IInputValidator mockInputValidator = mock(IInputValidator.class);
-        ICannonGameFlow cannonGameFlow = new CannonGameFlow(mockTargetGenerator,
-                mockShot, mockIntegerChecker, mockJudge, mockInputValidator);
         cannonGameFlow.flow("45", "1");
         //then: target method called once
         verify(mockTargetGenerator).getTarget();
@@ -26,19 +38,11 @@ public class CannonGameFlowTests {
     @Test
     public void givenVelocityAndAngleThenShot() {
         //given: I enter a velocity and angle
-        String inputAngle = "1";
-        String inputVelocity = "45";
+        String angle = "1";
+        String velocity = "45";
         //when: I call flowClass
-        ITargetGenerator mockTargetGenerator = mock(ITargetGenerator.class);
-        IShot mockShot = mock(IShot.class);
-        IIntegerChecker mockIntegerChecker = mock(IIntegerChecker.class);
-        IJudge mockJudge = mock(IJudge.class);
-        IInputValidator mockInputValidator = mock(IInputValidator.class);
-        ICannonGameFlow cannonGameFlow = new CannonGameFlow(mockTargetGenerator,
-                mockShot, mockIntegerChecker, mockJudge, mockInputValidator);
-        cannonGameFlow.flow(inputAngle, inputVelocity);
         //then: shot method is called
-        System.out.println(cannonGameFlow.flow(inputAngle, inputVelocity));
+        System.out.println(cannonGameFlow.flow(angle, velocity));
         // todo: fix IntegerChecker so it returns true for valid input
         //verify(mockShot).calculateShot(45, 1);
     }
@@ -46,17 +50,9 @@ public class CannonGameFlowTests {
     @Test
     public void givenVelocityAndAngleThenIntCheck() {
         //given: i enter a velocity and angle
-        String velocity = "1";
         String angle = "45";
+        String velocity = "1";
         //when: I call flowClass
-        ITargetGenerator mockTargetGenerator = mock(ITargetGenerator.class);
-        IShot mockShot = mock(IShot.class);
-        IIntegerChecker mockIntegerChecker = mock(IIntegerChecker.class);
-        IJudge mockJudge = mock(IJudge.class);
-        IInputValidator mockInputValidator = mock(IInputValidator.class);
-        ICannonGameFlow cannonGameFlow = new CannonGameFlow(mockTargetGenerator,
-                mockShot, mockIntegerChecker, mockJudge, mockInputValidator);
-        given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
         cannonGameFlow.flow(angle, velocity);
         //then: IntegerChecker method is called
         verify(mockIntegerChecker).isInt(angle, velocity);
@@ -65,20 +61,14 @@ public class CannonGameFlowTests {
     @Test
     public void givenVelocityAndAngleThenCallJudgeMethod() {
         //given: i enter a velocity and angle
-        String velocity = "1";
         String angle = "45";
+        String velocity = "1";
         //when: I call flowClass
-        ITargetGenerator mockTargetGenerator = mock(ITargetGenerator.class);
-        IShot mockShot = mock(IShot.class);
-        IIntegerChecker mockIntegerChecker = mock(IIntegerChecker.class);
-        IJudge mockJudge = mock(IJudge.class);
-        IInputValidator mockInputValidator = mock(IInputValidator.class);
-        ICannonGameFlow cannonGameFlow = new CannonGameFlow(mockTargetGenerator,
-                mockShot, mockIntegerChecker, mockJudge, mockInputValidator);
-        given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
         cannonGameFlow.flow(angle, velocity);
         //then: the judge method is called
-        //verify(mockJudge).judgeShot();
+        int[] testShot = {1, 2};
+        int[] testTarget = {1, 2};
+        //verify(mockJudge).judgeShot(testShot, testTarget);
     }
 
     //given: I have a miss
@@ -92,8 +82,8 @@ public class CannonGameFlowTests {
     @Test
     public void givenInvalidInputThenNeverCallJudgeMethod() {
         //given: i enter invalid angle and velocity
-        String velocity = "0";
         String angle = "91";
+        String velocity = "0";
         //when: I call flowClass
         ITargetGenerator mockTargetGenerator = mock(ITargetGenerator.class);
         IShot mockShot = mock(IShot.class);
