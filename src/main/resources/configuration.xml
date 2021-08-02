@@ -7,14 +7,18 @@
     http://www.springframework.org/schema/context/
     http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="flowClassConfig"   class="FlowClass">
-        <constructor-arg ref="intCheck"/>
-        <constructor-arg ref="validateCheck"/>
-        <constructor-arg ref="fizzB"/>
+    <bean id="flowClassConfig"   class="CannonGameFlow">
+        <constructor-arg ref="targetGenerator"/>
+        <constructor-arg ref="shot"/>
+        <constructor-arg ref="integerChecker"/>
+        <constructor-arg ref="judge"/>
+        <constructor-arg ref="inputValidator"/>
     </bean>
 
-    <bean id="intCheck" class="IntegerChecker"></bean>
-    <bean id="validateCheck" class="FizzBuzzValidator"></bean>
-    <bean id="fizzB" class="FizzBuzz"></bean>
+    <bean id="targetGenerator" class="TargetGenerator"> </bean>
+    <bean id="shot" class="Shot"> </bean>
+    <bean id="integerChecker" class="IntegerChecker"> </bean>
+    <bean id="judge" class="Judge"> </bean>
+    <bean id="inputValidator" class="InputValidator"> </bean>
 
 </beans>
