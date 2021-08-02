@@ -1,3 +1,3 @@
 public interface IInputValidator {
-    boolean ValidateAngleAndVelocityInput(int inputAngle, int inputVelocity);
+    boolean validateAngleAndVelocityInput(int inputAngle, int inputVelocity);
 }
