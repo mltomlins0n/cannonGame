@@ -13,8 +13,8 @@ public class InputValidatorTests {
         int inputAngle = 1;
         int inputVelocity = 1;
         // when I input and angle and a velocity of 1
-        IInputValidator mockInputValidator = mock(IInputValidator.class);
-        boolean result = mockInputValidator.validateAngleAndVelocityInput(inputAngle, inputVelocity);
+        InputValidator inputValidator = new InputValidator();
+        boolean result = inputValidator.validateAngleAndVelocityInput(inputAngle, inputVelocity);
         // then the output is true as 1 is in bounds
         assertTrue(result);
     }
@@ -25,8 +25,8 @@ public class InputValidatorTests {
         int inputAngle = 90;
         int inputVelocity = 20;
         // when I input and angle of 90 and a velocity of 20
-        IInputValidator mockInputValidator = mock(IInputValidator.class);
-        boolean result = mockInputValidator.validateAngleAndVelocityInput(inputAngle, inputVelocity);
+        InputValidator inputValidator = new InputValidator();
+        boolean result = inputValidator.validateAngleAndVelocityInput(inputAngle, inputVelocity);
         // then the output is true as 1 is in bounds
         assertTrue(result);
     }
