@@ -14,7 +14,6 @@ public class TargetGenerator implements ITargetGenerator {
         int[] target = new int[2];
         target[0] = Math.round(xTarget);
         target[1] = Math.round(yTarget);
-        System.out.println(Arrays.toString(target));
 
         return target;
     }
