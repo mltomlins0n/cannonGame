@@ -5,6 +5,7 @@ public class Shot implements IShot {
 
     @Override
     public int[] calculateShot(int inputAngle, int inputVelocity) {
+
         int xShot = (int) (inputVelocity * (Math.cos(inputAngle)));
         int yShot = (int) (inputVelocity * (Math.sin(inputAngle)));
 
