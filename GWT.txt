@@ -15,15 +15,14 @@ Objects to make:
         No test
 
 
+    target generator
     Given: I need a target
     When:I create target with an x and y
     Then:it is created with the x and y coordinates
 
-
-    Create a class to round final output from given velocity and angle
-    Given: i have a velocity and angle
-    When the velocity is 1.5 and angle 45
-    Then:  rounded down to (1,1)
+    Given: I need to round my target
+    When: I have my coordinates for x an y as doubles
+    Then: I round my target coordinates to the nearest integer
 
 flow Class
     given: I start a game
