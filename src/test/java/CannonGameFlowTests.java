@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
@@ -33,7 +32,7 @@ public class CannonGameFlowTests {
         //when: I call flowClass method
         cannonGameFlow.flow("45", "1");
         //then: target method called once
-        verify(mockTargetGenerator).getTarget();
+        verify(mockTargetGenerator).generateTarget();
     }
 
     @Test
