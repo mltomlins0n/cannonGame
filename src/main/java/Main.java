@@ -14,7 +14,7 @@ public class Main {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
         ICannonGameFlow flowClass = applicationContext.getBean("flowClassConfig", CannonGameFlow.class);
 
-        flowClass.getTargetValues();
+        System.out.println("Your target is at: " + Arrays.toString(flowClass.getTargetValues()));
         Scanner sc = new Scanner(System.in);
         System.out.print("Please enter an angle between 1-90 and a velocity between 1-20: ");
 
