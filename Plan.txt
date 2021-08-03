@@ -1,0 +1,33 @@
+
+
+- Given When Thens cannonflowclass
+- GWT shot flow
+- create shotflow class
+- implement logic in shotflow
+-
+
+ShotFlow GWT
+
+Given: I have a valid shot
+When: I call the flow method in ShotFlow Class
+Then: shot.calculate  is called 1 time
+
+Given: I have a valid shot
+When: I call the flow method in ShotFlow Class
+Then: judge.judgeShot is called 1 time
+
+Given: I have a valid shot
+When: I call the flow method in ShotFlow Class
+Then: shotCounter.incrementCounter is called 1 time
+
+Given: I have a invalid shot
+When: I call the flow method in ShotFlow Class
+Then: shot.calculate is not called
+
+Given: I have a invalid shot
+When: I call the flow method in ShotFlow Class
+Then: judge.judgeShot is not called
+
+Given: I have a invalid shot
+When: I call the flow method in ShotFlow Class
+Then: shotCounter.incrementCounter in not called
