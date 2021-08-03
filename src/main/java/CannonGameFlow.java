@@ -7,19 +7,19 @@ public class CannonGameFlow implements ICannonGameFlow {
     private ITargetGenerator _targetGenerator;
     private IShot _shot;
     private IIntegerChecker _integerChecker;
-    private IJudge _judgeShot;
+    private IJudge _judge;
     private IInputValidator _inputValidator;
     private int[] generatedValues = new int[2];
 
     public CannonGameFlow(IShotCounter _shotCounter, ITargetGenerator _targetGenerator,
                           IShot _shot, IIntegerChecker _integerChecker,
-                          IJudge _judgeShot, IInputValidator _inputValidator) {
+                          IJudge _judge, IInputValidator _inputValidator) {
 
         this._shotCounter = _shotCounter;
         this._targetGenerator = _targetGenerator;
         this._shot = _shot;
         this._integerChecker = _integerChecker;
-        this._judgeShot = _judgeShot;
+        this._judge = _judge;
         this._inputValidator = _inputValidator;
     }
 
@@ -51,7 +51,7 @@ public class CannonGameFlow implements ICannonGameFlow {
                     // then compute shot
                     int[] shot = _shot.calculateShot(validAngle, validVelocity);
                     // judge shot against target
-                    boolean judgeResult = _judgeShot.judgeShot(shot, randomTargetValues);
+                    boolean judgeResult = _judge.judgeShot(shot, randomTargetValues);
                     //increment counter
                     _shotCounter.incrementCounter();
                     System.out.print("Target was located at: " + Arrays.toString(randomTargetValues) + " " +
