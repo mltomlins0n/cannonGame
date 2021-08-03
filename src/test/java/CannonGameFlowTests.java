@@ -86,10 +86,12 @@ public class CannonGameFlowTests {
         String angle = "91";
         String velocity = "0";
         //when: I call flowClass
-        given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
+        given(mockInputValidator.validateAngleAndVelocityInput(91, 0)).willReturn(false);
         cannonGameFlow.flow(angle, velocity);
         //then: the judge method is never called
-        //verify(mockJudge, never()).judgeShot();
+        int[] testShot = {1, 2};
+        int[] testTarget = {1, 2};
+        verify(mockJudge, never()).judgeShot(testShot, testTarget);
     }
 
     @Test
