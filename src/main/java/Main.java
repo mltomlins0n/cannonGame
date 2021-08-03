@@ -13,14 +13,13 @@ public class Main {
         TargetGenerator targetGenerator = new TargetGenerator();
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("\nTarget is at: " + Arrays.toString(targetGenerator.getTarget()));
+        System.out.println("\nTarget is at: " + Arrays.toString(targetGenerator.generateTarget()));
         System.out.print("Please enter an angle between 1-90 and a velocity between 1-20: ");
 
         while (true) {
             String inputX = sc.next();
             String inputY = sc.next();
             String result = fClass.flow(inputX,inputY);
-            System.out.println("You have fired at: " + result);
             if(inputX.equalsIgnoreCase("quit")){
                 break;
             }
