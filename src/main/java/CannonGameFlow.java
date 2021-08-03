@@ -33,7 +33,6 @@ public class CannonGameFlow implements ICannonGameFlow {
     @Override
     public String flow(String angle, String velocity) {
         String messageTerminal = " ";
-        System.out.println(Arrays.toString(generatedValues));
         // define random array
         // set random array = generated target from getter
         // if valid shot
@@ -60,16 +59,13 @@ public class CannonGameFlow implements ICannonGameFlow {
                     if (judgeResult) {
                         System.out.print("You've hit your target!!! Yeeeaaaaaahh!");
                         messageTerminal = (" It took you " + _shotCounter.getCounter() + " Shots");
-
                     } else {
                         System.out.print("You missed, please enter another shot");
                     }
                 } else {
                     return "Please enter valid values for angle and velocity.";
                 }
-
             }
-
         }
         return messageTerminal;
     }
