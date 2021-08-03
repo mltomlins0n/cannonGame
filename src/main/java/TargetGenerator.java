@@ -3,7 +3,7 @@ import java.util.Arrays;
 public class TargetGenerator implements ITargetGenerator {
 
     @Override
-    public int[] getTarget() {
+    public int[] generateTarget() {
         int randX = (int) (Math.random() * 10) + 1;
         int randY = (int) (Math.random() * 10) + 1;
 
