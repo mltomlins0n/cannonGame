@@ -9,7 +9,7 @@ public class CannonGameFlow implements ICannonGameFlow {
     private IIntegerChecker _integerChecker;
     private IJudge _judgeShot;
     private IInputValidator _inputValidator;
-    private int[] generatedTarget = _targetGenerator.generateTarget();
+    private int[] generatedValues = new int[2];
 
     public CannonGameFlow(IShotCounter _shotCounter, ITargetGenerator _targetGenerator,
                           IShot _shot, IIntegerChecker _integerChecker,
@@ -21,19 +21,25 @@ public class CannonGameFlow implements ICannonGameFlow {
         this._integerChecker = _integerChecker;
         this._judgeShot = _judgeShot;
         this._inputValidator = _inputValidator;
-
     }
 
-
+    @Override
+    public int[] getTargetValues() {
+        this.generatedValues = _targetGenerator.generateTarget();
+        return generatedValues;
+    }
 
 
     @Override
     public String flow(String angle, String velocity) {
         String messageTerminal = " ";
+        System.out.println(Arrays.toString(generatedValues));
         // define random array
         // set random array = generated target from getter
         // if valid shot
-        if (generatedTarget.length == 2) {
+        int[] randomTargetValues;
+        randomTargetValues = generatedValues;
+        if (randomTargetValues.length == 2) {
             // validate shot
             boolean validInput = _integerChecker.isInt(angle, velocity);
             if (validInput) {
@@ -46,10 +52,10 @@ public class CannonGameFlow implements ICannonGameFlow {
                     // then compute shot
                     int[] shot = _shot.calculateShot(validAngle, validVelocity);
                     // judge shot against target
-                    boolean judgeResult = _judgeShot.judgeShot(shot, generatedTarget);
+                    boolean judgeResult = _judgeShot.judgeShot(shot, randomTargetValues);
                     //increment counter
                     _shotCounter.incrementCounter();
-                    System.out.print("Target was located at: " + Arrays.toString(generatedTarget) + " " +
+                    System.out.print("Target was located at: " + Arrays.toString(randomTargetValues) + " " +
                             "Your shot hit the following Coordinates: " + Arrays.toString(shot));
                     if (judgeResult) {
                         System.out.print("You've hit your target!!! Yeeeaaaaaahh!");
@@ -68,19 +74,3 @@ public class CannonGameFlow implements ICannonGameFlow {
         return messageTerminal;
     }
 }
-
-
-        //int[] target = _targetGenerator.getTarget();
-
-        //int shotCounter = 0;
-        //_shotCounter.incrementCounter();
-        //System.out.println(_shotCounter.getCounter());
-        //if (result) {
-          //  return Arrays.toString(shot);
-        //}
-        //else {
-         //
-       // }
-   // }
-
-//}
