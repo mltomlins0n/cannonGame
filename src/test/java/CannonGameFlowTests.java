@@ -30,7 +30,7 @@ public class CannonGameFlowTests {
     public void givenGameStartThenGetTarget() {
         //given: I start a game
         //when: I call flowClass method
-        cannonGameFlow.flow("45", "1");
+        cannonGameFlow.getTargetValues();
         //then: target method called once
         verify(mockTargetGenerator).generateTarget();
     }
@@ -65,11 +65,13 @@ public class CannonGameFlowTests {
         String velocity = "1";
         //when: I call flowClass
         cannonGameFlow.flow(angle, velocity);
+        given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
+        given(mockInputValidator.validateAngleAndVelocityInput(91, 0)).willReturn(true);
         //then: the judge method is called
         int[] testShot = {1, 2};
         int[] testTarget = {1, 2};
-        //verify(mockJudge).judgeShot(testShot, testTarget);
         // todo: fix so judge method is called
+        verify(mockJudge).judgeShot(testShot, testTarget);
     }
 
     //given: I have a miss
