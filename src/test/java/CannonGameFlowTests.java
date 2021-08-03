@@ -17,6 +17,7 @@ public class CannonGameFlowTests {
 
     @BeforeEach
     public void setup() {
+        mockShotCounter = mock(IShotCounter.class);
         mockTargetGenerator = mock(ITargetGenerator.class);
         mockShot = mock(IShot.class);
         mockIntegerChecker = mock(IIntegerChecker.class);
@@ -38,8 +39,8 @@ public class CannonGameFlowTests {
     @Test
     public void givenVelocityAndAngleThenShot() {
         //given: I enter a velocity and angle
-        String angle = "45";
         String velocity = "1";
+        String angle = "45";
         //when: I call flowClass
         //then: shot method is called
         System.out.println(cannonGameFlow.flow(angle, velocity));
@@ -66,7 +67,7 @@ public class CannonGameFlowTests {
         //when: I call flowClass
         cannonGameFlow.flow(angle, velocity);
         given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
-        given(mockInputValidator.validateAngleAndVelocityInput(91, 0)).willReturn(true);
+        given(mockInputValidator.validateAngleAndVelocityInput(45, 1)).willReturn(true);
         //then: the judge method is called
         int[] testShot = {1, 2};
         int[] testTarget = {1, 2};
@@ -74,13 +75,32 @@ public class CannonGameFlowTests {
         verify(mockJudge).judgeShot(testShot, testTarget);
     }
 
-    //given: I have a miss
-    //When: I call flowClass
-    //then: 1 is added to the counter
+    @Test
+    public void givenHitThenReturnGetCounterMethod() {
+        //Given: I have a shot that hits
+        int[] testShot = {1, 2};
+        int[] testTarget = {1, 2};
+        //When: I call flowClass
+        cannonGameFlow.flow("1" ,"1");
+        given(mockJudge.judgeShot(testShot,testTarget)).willReturn(true);
+        //Then: The get counter method is called 1 time
+        verify(mockShotCounter, times(1)).getCounter();
 
-    //given: I have a shot that hits
-    //when: I call flowClass
-    //then: the counter is returned
+    }
+
+    @Test
+    public void givenMissThenIncrementCounterMethod() {
+        //Given: I have a miss
+        int[] testShot = {2, 3};
+        int[] testTarget = {1, 2};
+        //When: I call flowClass
+        cannonGameFlow.flow("1" ,"1");
+        given(mockJudge.judgeShot(testShot,testTarget)).willReturn(false);
+        //Then: The increment counter method is called 1 time
+        verify(mockShotCounter, times(1)).incrementCounter();
+
+    }
+
 
     @Test
     public void givenInvalidInputThenNeverCallJudgeMethod() {
