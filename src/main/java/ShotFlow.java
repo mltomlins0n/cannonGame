@@ -17,9 +17,20 @@ public class ShotFlow implements IShotFlow {
 
     @Override
     public boolean flow(String angle, String velocity) {
-        int validAngle = Integer.parseInt(angle);
-        int validVelocity = Integer.parseInt(velocity);
-        _shot.calculateShot(validAngle, validVelocity);
-        return true;
+        boolean validInput = _integerChecker.isInt(angle, velocity);
+
+        if (validInput) {
+            int validAngle = Integer.parseInt(angle);
+            int validVelocity = Integer.parseInt(velocity);
+            _shot.calculateShot(validAngle, validVelocity);
+            int[] testShot = {1, 2};
+            int[] testTarget = {1, 2};
+            _judge.judgeShot(testShot, testTarget);
+            _shotCounter.incrementCounter();
+            _shotCounter.getCounter();
+        }
+
+
+        return false;
     }
 }
