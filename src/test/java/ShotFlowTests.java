@@ -33,6 +33,7 @@ public class ShotFlowTests {
         int[] target = {1, 2};
         //When: I call the flow method in ShotFlow Class
         given(mockIntegerChecker.isInt(validAngle, validVelocity)).willReturn(true);
+        given(mockInputValidator.validateAngleAndVelocityInput( 60, 10)).willReturn(true);
         shotFlow.flow(validAngle, validVelocity, target);
         //Then: shot.calculate  is called 1 time
         verify(mockShot, times(1)).calculateShot(60,10);
@@ -44,12 +45,14 @@ public class ShotFlowTests {
         String validAngle = "60";
         String validVelocity = "10";
         int[] target = {1, 2};
-        //When: I call the flow method in ShotFlowTests Class
-        given(mockIntegerChecker.isInt(validAngle, validVelocity)).willReturn(true);
-        shotFlow.flow(validAngle, validVelocity, target);
-        //Then: judge.judgeShot is called 1 time
         int[] testShot = {1, 2};
         int[] testTarget = {1, 2};
+        //When: I call the flow method in ShotFlowTests Class
+        given(mockIntegerChecker.isInt(validAngle, validVelocity)).willReturn(true);
+        given(mockInputValidator.validateAngleAndVelocityInput( 60, 10)).willReturn(true);
+        given(mockShot.calculateShot(60, 10)).willReturn(testShot);
+        shotFlow.flow(validAngle, validVelocity, target);
+        //Then: judge.judgeShot is called 1 time
         verify(mockJudge, times(1)).judgeShot(testShot, testTarget);
     }
 
@@ -61,6 +64,7 @@ public class ShotFlowTests {
         int[] target = {1, 2};
         //When: I call the flow method in ShotFlowTests Class
         given(mockIntegerChecker.isInt(validAngle, validVelocity)).willReturn(true);
+        given(mockInputValidator.validateAngleAndVelocityInput( 60, 10)).willReturn(true);
         shotFlow.flow(validAngle, validVelocity, target);
         //Then: shotCounter.incrementCounter is called 1 time
         verify(mockShotCounter, times(1)).incrementCounter();
@@ -76,8 +80,11 @@ public class ShotFlowTests {
         //given(mockIntegerChecker.isInt(validAngle, validVelocity)).willReturn(true);
         int[] testShot = {1, 2};
         int[] testTarget = {1, 2};
-        given(mockJudge.judgeShot(testShot, testTarget)).willReturn(true);
         given(mockIntegerChecker.isInt(validAngle, validVelocity)).willReturn(true);
+        given(mockInputValidator.validateAngleAndVelocityInput( 60, 10)).willReturn(true);
+        given(mockShot.calculateShot(60,10)).willReturn(testShot);
+        given(mockJudge.judgeShot(testShot, testTarget)).willReturn(true);
+
         shotFlow.flow(validAngle, validVelocity, target);
         //Then: shotCounter.getCounter is called 1 time
         verify(mockShotCounter, times(1)).getCounter();
