@@ -6,8 +6,8 @@ import static org.mockito.Mockito.verify;
 
 public class ShotFlowTests {
 
-    IInputValidator mockInputValidator;
     IShot mockShot;
+    IInputValidator mockInputValidator;
     IJudge mockJudge;
     IShotCounter mockShotCounter;
     IShotFlow shotFlow;
@@ -15,11 +15,11 @@ public class ShotFlowTests {
     @BeforeEach
     public void setup() {
 
-        mockInputValidator = mock(IInputValidator.class);
         mockShot = mock(IShot.class);
+        mockInputValidator = mock(IInputValidator.class);
         mockJudge = mock(IJudge.class);
         mockShotCounter = mock(IShotCounter.class);
-        shotFlow = new ShotFlow (mockInputValidator,mockShot, mockJudge,mockShotCounter);
+        shotFlow = new ShotFlow (mockShot, mockInputValidator, mockJudge, mockShotCounter);
 
 
     }
