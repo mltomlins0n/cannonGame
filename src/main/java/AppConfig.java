@@ -26,9 +26,13 @@ public class AppConfig {
     public ShotCounter shotCounter(){
         return new ShotCounter();
     }
-    @Bean(name = "flowClassConfig")
-    public RoundFlow flow(){
+    @Bean(name = "shotFlow")
+    public ShotFlow shotFlow(){
+        return new ShotFlow(calculateShot(), judgeShot(), shotCounter());
+    }
+    @Bean(name = "roundFlow")
+    public RoundFlow roundFlow(){
         return new RoundFlow(shotCounter(), generateTarget(), calculateShot(),
-                isInt(), judgeShot(), validateAngleAndVelocityInput());
+                isInt(), judgeShot(), validateAngleAndVelocityInput(), shotFlow());
     }
 }
