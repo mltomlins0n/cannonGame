@@ -32,9 +32,9 @@ public class ShotFlowTests {
         String validAngle = "60";
         String validVelocity = "10";
         //When: I call the flow method in ShotFlow Class
+        given(mockIntegerChecker.isInt(validAngle, validVelocity)).willReturn(true);
         shotFlow.flow(validAngle, validVelocity);
         //Then: shot.calculate  is called 1 time
-        given(mockIntegerChecker.isInt(validAngle, validVelocity)).willReturn(true);
         verify(mockShot, times(1)).calculateShot(60,10);
     }
 
@@ -44,6 +44,7 @@ public class ShotFlowTests {
         String validAngle = "60";
         String validVelocity = "10";
         //When: I call the flow method in ShotFlowTests Class
+        given(mockIntegerChecker.isInt(validAngle, validVelocity)).willReturn(true);
         shotFlow.flow(validAngle, validVelocity);
         //Then: judge.judgeShot is called 1 time
         int[] testShot = {1, 2};
@@ -57,6 +58,7 @@ public class ShotFlowTests {
         String validAngle = "60";
         String validVelocity = "10";
         //When: I call the flow method in ShotFlowTests Class
+        given(mockIntegerChecker.isInt(validAngle, validVelocity)).willReturn(true);
         shotFlow.flow(validAngle, validVelocity);
         //Then: shotCounter.incrementCounter is called 1 time
         verify(mockShotCounter, times(1)).incrementCounter();
@@ -68,10 +70,11 @@ public class ShotFlowTests {
         String validAngle = "60";
         String validVelocity = "10";
         //When: I call the flow method in ShotFlowTests Class
+        //given(mockIntegerChecker.isInt(validAngle, validVelocity)).willReturn(true);
         int[] testShot = {1, 2};
         int[] testTarget = {1, 2};
         given(mockJudge.judgeShot(testShot, testTarget)).willReturn(true);
-
+        given(mockIntegerChecker.isInt(validAngle, validVelocity)).willReturn(true);
         shotFlow.flow(validAngle, validVelocity);
         //Then: shotCounter.getCounter is called 1 time
         verify(mockShotCounter, times(1)).getCounter();
@@ -80,35 +83,63 @@ public class ShotFlowTests {
     @Test
     public void givenInvalidShotThenShotCalculateNeverCalled() {
         //Given: I have a invalid shot
-        String inValidAngle = "91";
-        String inValidVelocity = "21";
+        String invalidAngle = "91";
+        String invalidVelocity = "21";
         //When: I call the flow method in ShotFlowTests Class
-        given(mockIntegerChecker.isInt(inValidAngle, inValidVelocity)).willReturn(false);
-
-        shotFlow.flow(inValidAngle, inValidVelocity);
+        given(mockIntegerChecker.isInt(invalidAngle, invalidVelocity)).willReturn(false);
+        shotFlow.flow(invalidAngle, invalidVelocity);
         //Then: shot.calculate is not called
         verify(mockShot, never()).calculateShot(91, 21);
     }
 
-/*
     @Test
-    public void givenInvalidShotJudgeShot1Time() {
+    public void givenInvalidShotNeverCallJudgeShot() {
         //Given: I have a invalid shot
+        String invalidAngle = "91";
+        String invalidVelocity = "21";
+        int[] testShot = {91, 21};
+        int[] testTarget = {91, 21};
         //When: I call the flow method in ShotFlowTests Class
-        cannonGameFlow.getTargetValues();
+        given(mockIntegerChecker.isInt(invalidAngle, invalidVelocity)).willReturn(false);
+        given(mockShot.calculateShot(91, 21)).willReturn(testShot);
+        shotFlow.flow(invalidAngle, invalidVelocity);
         //Then: judge.judgeShot is not called
-        verify(mockTargetGenerator).generateTarget();
+        verify(mockJudge, never()).judgeShot(testShot, testTarget);
     }
 
     @Test
-    public void givenInvalidShotShotCounter1Time() {
+    public void givenInvalidShotNeverCallIncrementCounter() {
         //Given: I have a invalid shot
+        String invalidAngle = "91";
+        String invalidVelocity = "21";
+        int[] testShot = {91, 21};
+        int[] testTarget = {91, 21};
         //When: I call the flow method in ShotFlowTests Class
-        cannonGameFlow.getTargetValues();
+        given(mockIntegerChecker.isInt(invalidAngle, invalidVelocity)).willReturn(false);
+        given(mockShot.calculateShot(91, 21)).willReturn(testShot);
+        given(mockJudge.judgeShot(testShot, testTarget)).willReturn(false);
+        shotFlow.flow(invalidAngle, invalidVelocity);
         //Then: shotCounter.incrementCounter is not called
-        verify(mockTargetGenerator).generateTarget();
+        verify(mockShotCounter, never()).incrementCounter();
     }
-     */
+
+    @Test
+    public void givenInvalidShotNeverCallGetCounter() {
+        //Given: I have a invalid shot
+        String invalidAngle = "91";
+        String invalidVelocity = "21";
+        int[] testShot = {91, 21};
+        int[] testTarget = {91, 21};
+        //When: I call the flow method in ShotFlowTests Class
+        given(mockIntegerChecker.isInt(invalidAngle, invalidVelocity)).willReturn(false);
+        given(mockShot.calculateShot(91, 21)).willReturn(testShot);
+        given(mockJudge.judgeShot(testShot, testTarget)).willReturn(false);
+        //given(mockShotCounter.incrementCounter()). // todo: ask if you can use a given statement on a void method
+        shotFlow.flow(invalidAngle, invalidVelocity);
+        //Then: shotCounter.getCounter is not called
+        verify(mockShotCounter, never()).getCounter();
+    }
+
 }
 
 
