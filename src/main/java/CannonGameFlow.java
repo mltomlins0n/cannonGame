@@ -11,16 +11,16 @@ public class CannonGameFlow implements ICannonGameFlow {
     private IInputValidator _inputValidator;
     private int[] generatedValues = new int[2];
 
-    public CannonGameFlow(IShotCounter _shotCounter, ITargetGenerator _targetGenerator,
-                          IShot _shot, IIntegerChecker _integerChecker,
-                          IJudge _judge, IInputValidator _inputValidator) {
+    public CannonGameFlow(IShotCounter shotCounter, ITargetGenerator targetGenerator,
+                          IShot shot, IIntegerChecker integerChecker,
+                          IJudge judge, IInputValidator inputValidator) {
 
-        this._shotCounter = _shotCounter;
-        this._targetGenerator = _targetGenerator;
-        this._shot = _shot;
-        this._integerChecker = _integerChecker;
-        this._judge = _judge;
-        this._inputValidator = _inputValidator;
+        this._shotCounter = shotCounter;
+        this._targetGenerator = targetGenerator;
+        this._shot = shot;
+        this._integerChecker = integerChecker;
+        this._judge = judge;
+        this._inputValidator = inputValidator;
     }
 
     @Override
