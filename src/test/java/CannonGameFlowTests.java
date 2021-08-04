@@ -31,9 +31,9 @@ public class CannonGameFlowTests {
     public void givenGameStartThenGetTarget() {
         //given: I start a game
         //when: I call flowClass method
-        cannonGameFlow.getTargetValues();
+        cannonGameFlow.flow("45", "1");
         //then: target method called once
-        verify(mockTargetGenerator).generateTarget();
+        verify(mockTargetGenerator, times(1)).generateTarget();
     }
 
     @Test
@@ -45,7 +45,7 @@ public class CannonGameFlowTests {
         //then: shot method is called
         System.out.println(cannonGameFlow.flow(angle, velocity));
         // todo: fix IntegerChecker so it returns true for valid input
-        verify(mockShot).calculateShot(45, 1);
+        verify(mockShot, times(1)).calculateShot(45, 1);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class CannonGameFlowTests {
         //when: I call flowClass
         cannonGameFlow.flow(angle, velocity);
         //then: IntegerChecker method is called
-        verify(mockIntegerChecker).isInt(angle, velocity);
+        verify(mockIntegerChecker, times(1)).isInt(angle, velocity);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class CannonGameFlowTests {
         int[] testShot = {1, 2};
         int[] testTarget = {1, 2};
         // todo: fix so judge method is called
-        verify(mockJudge).judgeShot(testShot, testTarget);
+        verify(mockJudge, times(1)).judgeShot(testShot, testTarget);
     }
 
     @Test
