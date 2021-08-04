@@ -4,10 +4,10 @@ public class IntegerChecker implements IIntegerChecker {
         try {
             Integer.parseInt(inputAngle);
             Integer.parseInt(inputVelocity);
-            return true;
         }
         catch (NumberFormatException e) {
             return false;
         }
+        return true;
     }
 }
