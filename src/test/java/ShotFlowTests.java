@@ -6,18 +6,20 @@ import static org.mockito.Mockito.verify;
 
 public class ShotFlowTests {
 
-    IShotFlow mockShotFlow;
+    IInputValidator mockInputValidator;
     IShot mockShot;
     IJudge mockJudge;
     IShotCounter mockShotCounter;
+    IShotFlow shotFlow;
 
     @BeforeEach
     public void setup() {
 
-        shotFlow = new ShotFlow (mockShot, mockJudge,mockShotCounter);
+        mockInputValidator = mock(IInputValidator.class);
         mockShot = mock(IShot.class);
         mockJudge = mock(IJudge.class);
         mockShotCounter = mock(IShotCounter.class);
+        shotFlow = new ShotFlow (mockInputValidator,mockShot, mockJudge,mockShotCounter);
 
 
     }
@@ -25,10 +27,12 @@ public class ShotFlowTests {
     @Test
     public void givenValidShotCallShotCalculate1Time() {
         //Given: I have a valid shot
+        String validAngle = "60";
+        String validVelocity = "10";
         //When: I call the flow method in ShotFlow Class
-        shotFlow.getShotValues();
+        shotFlow.flow(validAngle, validVelocity);
         //Then: shot.calculate  is called 1 time
-        verify(mock_shot).calculateShot();
+        verify(mockShot).calculateShot(60,10);
     }
 
 
