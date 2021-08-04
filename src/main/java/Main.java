@@ -9,6 +9,6 @@ public class Main {
 
         System.out.print("Please enter an angle between 1-90 and a velocity between 1-20: ");
 
-        //flowClass.flow(inputX,inputY);
+        // call flow class here
     }
 }
