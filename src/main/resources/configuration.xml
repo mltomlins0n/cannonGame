@@ -6,7 +6,7 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context/">
 
-    <bean id="flowClassConfig"   class="CannonGameFlow">
+    <bean id="flowClassConfig"   class="RoundFlow">
         <constructor-arg ref="shotCounter"/>
         <constructor-arg ref="targetGenerator"/>
         <constructor-arg ref="shot"/>

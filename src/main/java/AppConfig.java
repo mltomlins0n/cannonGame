@@ -27,8 +27,8 @@ public class AppConfig {
         return new ShotCounter();
     }
     @Bean(name = "flowClassConfig")
-    public CannonGameFlow flow(){
-        return new CannonGameFlow(shotCounter(), generateTarget(), calculateShot(),
+    public RoundFlow flow(){
+        return new RoundFlow(shotCounter(), generateTarget(), calculateShot(),
                 isInt(), judgeShot(), validateAngleAndVelocityInput());
     }
 }

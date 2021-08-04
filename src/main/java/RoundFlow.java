@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 
-public class CannonGameFlow implements ICannonGameFlow {
+public class RoundFlow implements ICannonGameFlow {
 
     private IShotCounter _shotCounter;
     private ITargetGenerator _targetGenerator;
@@ -10,9 +10,9 @@ public class CannonGameFlow implements ICannonGameFlow {
     private IJudge _judge;
     private IInputValidator _inputValidator;
 
-    public CannonGameFlow(IShotCounter shotCounter, ITargetGenerator targetGenerator,
-                          IShot shot, IIntegerChecker integerChecker,
-                          IJudge judge, IInputValidator inputValidator) {
+    public RoundFlow(IShotCounter shotCounter, ITargetGenerator targetGenerator,
+                     IShot shot, IIntegerChecker integerChecker,
+                     IJudge judge, IInputValidator inputValidator) {
 
         this._shotCounter = shotCounter;
         this._targetGenerator = targetGenerator;

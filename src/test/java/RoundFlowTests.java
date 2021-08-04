@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
-public class CannonGameFlowTests {
+public class RoundFlowTests {
 
     IShotCounter mockShotCounter;
     ITargetGenerator mockTargetGenerator;
@@ -23,7 +23,7 @@ public class CannonGameFlowTests {
         mockIntegerChecker = mock(IIntegerChecker.class);
         mockJudge = mock(IJudge.class);
         mockInputValidator = mock(IInputValidator.class);
-        cannonGameFlow = new CannonGameFlow(mockShotCounter, mockTargetGenerator,
+        cannonGameFlow = new RoundFlow(mockShotCounter, mockTargetGenerator,
                 mockShot, mockIntegerChecker, mockJudge, mockInputValidator);
     }
 
