@@ -10,6 +10,7 @@ public class ShotFlowTests {
     IInputValidator mockInputValidator;
     IJudge mockJudge;
     IShotCounter mockShotCounter;
+    IIntegerChecker mockIntegerChecker;
     IShotFlow shotFlow;
 
     @BeforeEach
@@ -19,7 +20,8 @@ public class ShotFlowTests {
         mockInputValidator = mock(IInputValidator.class);
         mockJudge = mock(IJudge.class);
         mockShotCounter = mock(IShotCounter.class);
-        shotFlow = new ShotFlow (mockShot, mockInputValidator, mockJudge, mockShotCounter);
+        mockIntegerChecker = mock(IIntegerChecker.class);
+        shotFlow = new ShotFlow (mockShot, mockInputValidator, mockJudge, mockShotCounter, mockIntegerChecker);
 
 
     }
