@@ -68,20 +68,23 @@ public class ShotFlowTests {
         String validAngle = "60";
         String validVelocity = "10";
         //When: I call the flow method in ShotFlowTests Class
-        shotFlow.flow(validAngle, validVelocity);
-        //Then: shotCounter.getCounter is called 1 time
         int[] testShot = {1, 2};
         int[] testTarget = {1, 2};
         given(mockJudge.judgeShot(testShot, testTarget)).willReturn(true);
+
+        shotFlow.flow(validAngle, validVelocity);
+        //Then: shotCounter.getCounter is called 1 time
         verify(mockShotCounter, times(1)).getCounter();
     }
 
     @Test
-    public void givenInvalidShotCallShotCalculate1Time() {
+    public void givenInvalidShotThenShotCalculateNeverCalled() {
         //Given: I have a invalid shot
         String inValidAngle = "91";
         String inValidVelocity = "21";
         //When: I call the flow method in ShotFlowTests Class
+        given(mockIntegerChecker.isInt(inValidAngle, inValidVelocity)).willReturn(false);
+
         shotFlow.flow(inValidAngle, inValidVelocity);
         //Then: shot.calculate is not called
         verify(mockShot, never()).calculateShot(91, 21);
