@@ -13,7 +13,8 @@ public class RoundFlowTests {
     IIntegerChecker mockIntegerChecker;
     IJudge mockJudge;
     IInputValidator mockInputValidator;
-    ICannonGameFlow cannonGameFlow;
+    IShotFlow mockShotFlow;
+    IRoundFlow roundFlow;
 
     @BeforeEach
     public void setup() {
@@ -23,15 +24,16 @@ public class RoundFlowTests {
         mockIntegerChecker = mock(IIntegerChecker.class);
         mockJudge = mock(IJudge.class);
         mockInputValidator = mock(IInputValidator.class);
-        cannonGameFlow = new RoundFlow(mockShotCounter, mockTargetGenerator,
-                mockShot, mockIntegerChecker, mockJudge, mockInputValidator);
+        mockShotFlow = mock(IShotFlow.class);
+        roundFlow = new RoundFlow(mockShotCounter, mockTargetGenerator,
+                mockShot, mockIntegerChecker, mockJudge, mockInputValidator, mockShotFlow);
     }
 
     @Test
     public void givenGameStartThenGetTarget() {
         //given: I start a game
         //when: I call flowClass method
-        cannonGameFlow.flow("45", "1");
+        roundFlow.roundFlow("45", "1");
         //then: target method called once
         verify(mockTargetGenerator, times(1)).generateTarget();
     }
@@ -44,7 +46,7 @@ public class RoundFlowTests {
         //when: I call flowClass
         //then: shot method is called
         given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
-        System.out.println(cannonGameFlow.flow(angle, velocity));
+        System.out.println(roundFlow.roundFlow(angle, velocity));
         verify(mockShot, times(1)).calculateShot(45, 1);
     }
 
@@ -54,7 +56,7 @@ public class RoundFlowTests {
         String angle = "45";
         String velocity = "1";
         //when: I call flowClass
-        cannonGameFlow.flow(angle, velocity);
+        roundFlow.roundFlow(angle, velocity);
         //then: IntegerChecker method is called
         verify(mockIntegerChecker, times(1)).isInt(angle, velocity);
     }
@@ -65,7 +67,7 @@ public class RoundFlowTests {
         String angle = "45";
         String velocity = "1";
         //when: I call flowClass
-        cannonGameFlow.flow(angle, velocity);
+        roundFlow.roundFlow(angle, velocity);
         given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
         given(mockInputValidator.validateAngleAndVelocityInput(45, 1)).willReturn(true);
         //then: the judge method is called
@@ -81,7 +83,7 @@ public class RoundFlowTests {
         int[] testShot = {1, 2};
         int[] testTarget = {1, 2};
         //When: I call flowClass
-        cannonGameFlow.flow("1" ,"1");
+        roundFlow.roundFlow("1" ,"1");
         given(mockJudge.judgeShot(testShot,testTarget)).willReturn(true);
         //Then: The get counter method is called 1 time
         verify(mockShotCounter, times(1)).getCounter();
@@ -94,7 +96,7 @@ public class RoundFlowTests {
         int[] testShot = {2, 3};
         int[] testTarget = {1, 2};
         //When: I call flowClass
-        cannonGameFlow.flow("1" ,"1");
+        roundFlow.roundFlow("1" ,"1");
         given(mockJudge.judgeShot(testShot,testTarget)).willReturn(false);
         //Then: The increment counter method is called 1 time
         verify(mockShotCounter, times(1)).incrementCounter();
@@ -109,7 +111,7 @@ public class RoundFlowTests {
         String velocity = "0";
         //when: I call flowClass
         given(mockInputValidator.validateAngleAndVelocityInput(91, 0)).willReturn(false);
-        cannonGameFlow.flow(angle, velocity);
+        roundFlow.roundFlow(angle, velocity);
         //then: the judge method is never called
         int[] testShot = {1, 2};
         int[] testTarget = {1, 2};
@@ -123,7 +125,7 @@ public class RoundFlowTests {
         String velocity = "def";
         //when: I call flowClass
         given(mockIntegerChecker.isInt(angle, velocity)).willReturn(false);
-        cannonGameFlow.flow(angle, velocity);
+        roundFlow.roundFlow(angle, velocity);
         //then: the shot method is never called
         verify(mockShot, never()).calculateShot(91, 0);
     }
