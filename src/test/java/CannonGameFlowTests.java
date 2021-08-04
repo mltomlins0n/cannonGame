@@ -43,8 +43,8 @@ public class CannonGameFlowTests {
         String angle = "45";
         //when: I call flowClass
         //then: shot method is called
+        given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
         System.out.println(cannonGameFlow.flow(angle, velocity));
-        // todo: fix IntegerChecker so it returns true for valid input
         verify(mockShot, times(1)).calculateShot(45, 1);
     }
 
