@@ -1,13 +1,23 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class ShotFlowTests {
 
+    IShotFlow mockShotFlow;
+    IShot mockShot;
+    IJudge mockJudge;
+    IShotCounter mockShotCounter;
 
     @BeforeEach
     public void setup() {
+
+        shotFlow = new ShotFlow (mockShot, mockJudge,mockShotCounter);
+        mockShot = mock(IShot.class);
+        mockJudge = mock(IJudge.class);
+        mockShotCounter = mock(IShotCounter.class);
 
 
     }
@@ -16,9 +26,9 @@ public class ShotFlowTests {
     public void givenValidShotCallShotCalculate1Time() {
         //Given: I have a valid shot
         //When: I call the flow method in ShotFlow Class
-        cannonGameFlow.getTargetValues();
+        shotFlow.getShotValues();
         //Then: shot.calculate  is called 1 time
-        verify(mockTargetGenerator).generateTarget();
+        verify(mock_shot).calculateShot();
     }
 
 
