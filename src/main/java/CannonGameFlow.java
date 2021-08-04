@@ -9,7 +9,6 @@ public class CannonGameFlow implements ICannonGameFlow {
     private IIntegerChecker _integerChecker;
     private IJudge _judge;
     private IInputValidator _inputValidator;
-    private int[] generatedValues = new int[2];
 
     public CannonGameFlow(IShotCounter shotCounter, ITargetGenerator targetGenerator,
                           IShot shot, IIntegerChecker integerChecker,
@@ -32,6 +31,9 @@ public class CannonGameFlow implements ICannonGameFlow {
             int validAngle = Integer.parseInt(angle);
             int validVelocity = Integer.parseInt(velocity);
             boolean validShot = _inputValidator.validateAngleAndVelocityInput(validAngle, validVelocity);
+
+            //call shot.flow()
+            //_shot.flow(angle, velocity, target);
 
             if (validShot) {
                 int[] shot = _shot.calculateShot(validAngle, validVelocity);
