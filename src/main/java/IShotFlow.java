@@ -1,3 +1,3 @@
 public interface IShotFlow {
-    boolean flow(String angle, String velocity, int[] target);
+    boolean shotFlow(int angle, int velocity, int[] target);
 }
