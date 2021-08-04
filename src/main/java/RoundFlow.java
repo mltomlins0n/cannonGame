@@ -1,7 +1,8 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
 
-public class RoundFlow implements ICannonGameFlow {
+public class RoundFlow implements IRoundFlow {
 
     private IShotCounter _shotCounter;
     private ITargetGenerator _targetGenerator;
@@ -9,10 +10,11 @@ public class RoundFlow implements ICannonGameFlow {
     private IIntegerChecker _integerChecker;
     private IJudge _judge;
     private IInputValidator _inputValidator;
+    private IShotFlow _shotFlow;
 
     public RoundFlow(IShotCounter shotCounter, ITargetGenerator targetGenerator,
                      IShot shot, IIntegerChecker integerChecker,
-                     IJudge judge, IInputValidator inputValidator) {
+                     IJudge judge, IInputValidator inputValidator, IShotFlow shotFlow) {
 
         this._shotCounter = shotCounter;
         this._targetGenerator = targetGenerator;
@@ -20,38 +22,32 @@ public class RoundFlow implements ICannonGameFlow {
         this._integerChecker = integerChecker;
         this._judge = judge;
         this._inputValidator = inputValidator;
+        this._shotFlow = shotFlow;
     }
 
     @Override
-    public String flow(String angle, String velocity) {
+    public String roundFlow(String angle, String velocity) {
         String messageTerminal = " ";
         int[] target = _targetGenerator.generateTarget();
+        System.out.println("Your target is at: " + Arrays.toString(target));
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please enter in an angle between 1-90: ");
+        angle = scanner.nextLine();
+        System.out.print("Please enter in a velocity between 1-20: ");
+        velocity = scanner.nextLine();
+
         boolean validInput = _integerChecker.isInt(angle, velocity);
         if (validInput) {
             int validAngle = Integer.parseInt(angle);
             int validVelocity = Integer.parseInt(velocity);
             boolean validShot = _inputValidator.validateAngleAndVelocityInput(validAngle, validVelocity);
-
-            //call shot.flow()
-            //_shot.flow(angle, velocity, target);
-
             if (validShot) {
-                int[] shot = _shot.calculateShot(validAngle, validVelocity);
-
-                boolean judgeResult = _judge.judgeShot(shot, target);
-
-                _shotCounter.incrementCounter();
-                System.out.print("Target was located at: " + Arrays.toString(target) + " " +
-                        "Your shot hit the following Coordinates: " + Arrays.toString(shot));
-                if (judgeResult) {
-                    System.out.print("You've hit your target!!! Yeeeaaaaaahh!");
-                    messageTerminal = (" It took you " + _shotCounter.getCounter() + " Shots");
-                } else {
-                    System.out.print("You missed, please enter another shot");
-                }
-            } else {
-                return "Please enter valid values for angle and velocity.";
+                _shotFlow.shotFlow(validAngle, validVelocity, target);
             }
+            else {
+                System.out.println("Please enter valid values for angle and velocity.");
+        }
         }
         return messageTerminal;
     }
