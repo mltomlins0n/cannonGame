@@ -24,13 +24,6 @@ public class CannonGameFlow implements ICannonGameFlow {
     }
 
     @Override
-    public int[] getTargetValues() {
-        this.generatedValues = _targetGenerator.generateTarget();
-        return generatedValues;
-    }
-
-
-    @Override
     public String flow(String angle, String velocity) {
         String messageTerminal = " ";
         // define random array
