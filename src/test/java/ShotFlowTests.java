@@ -11,6 +11,7 @@ public class ShotFlowTests {
     IJudge mockJudge;
     IShotCounter mockShotCounter;
     IIntegerChecker mockIntegerChecker;
+    ITargetGenerator mockTargetGenerator;
     IShotFlow shotFlow;
 
     @BeforeEach
@@ -21,9 +22,20 @@ public class ShotFlowTests {
         mockJudge = mock(IJudge.class);
         mockShotCounter = mock(IShotCounter.class);
         mockIntegerChecker = mock(IIntegerChecker.class);
-        shotFlow = new ShotFlow (mockShot, mockInputValidator, mockJudge, mockShotCounter, mockIntegerChecker);
+        mockTargetGenerator = mock(ITargetGenerator.class);
+        shotFlow = new ShotFlow (mockShot, mockInputValidator, mockJudge,
+                mockShotCounter, mockIntegerChecker, mockTargetGenerator);
+    }
 
-
+    @Test
+    public void givenGameStartCallGenerateTarget1Time() {
+        // Given: I start a game
+        String validAngle = "60";
+        String validVelocity = "10";
+        // When: I call flowClass method
+        shotFlow.flow(validAngle, validVelocity);
+        // Then: target method called 1 time
+        verify(mockTargetGenerator, times(1)).generateTarget();
     }
 
     @Test
@@ -134,7 +146,6 @@ public class ShotFlowTests {
         given(mockIntegerChecker.isInt(invalidAngle, invalidVelocity)).willReturn(false);
         given(mockShot.calculateShot(91, 21)).willReturn(testShot);
         given(mockJudge.judgeShot(testShot, testTarget)).willReturn(false);
-        //given(mockShotCounter.incrementCounter()). // todo: ask if you can use a given statement on a void method
         shotFlow.flow(invalidAngle, invalidVelocity);
         //Then: shotCounter.getCounter is not called
         verify(mockShotCounter, never()).getCounter();
