@@ -26,6 +26,7 @@ public class CannonGameFlow implements ICannonGameFlow {
     @Override
     public String flow(String angle, String velocity) {
         String messageTerminal = " ";
+        int[] target = _targetGenerator.generateTarget();
         boolean validInput = _integerChecker.isInt(angle, velocity);
         if (validInput) {
             int validAngle = Integer.parseInt(angle);
@@ -33,14 +34,12 @@ public class CannonGameFlow implements ICannonGameFlow {
             boolean validShot = _inputValidator.validateAngleAndVelocityInput(validAngle, validVelocity);
 
             if (validShot) {
-                // if a valid input for shot
-                // then compute shot
                 int[] shot = _shot.calculateShot(validAngle, validVelocity);
-                // judge shot against target
-                boolean judgeResult = _judge.judgeShot(shot, randomTargetValues);
-                //increment counter
+
+                boolean judgeResult = _judge.judgeShot(shot, target);
+
                 _shotCounter.incrementCounter();
-                System.out.print("Target was located at: " + Arrays.toString(randomTargetValues) + " " +
+                System.out.print("Target was located at: " + Arrays.toString(target) + " " +
                         "Your shot hit the following Coordinates: " + Arrays.toString(shot));
                 if (judgeResult) {
                     System.out.print("You've hit your target!!! Yeeeaaaaaahh!");
