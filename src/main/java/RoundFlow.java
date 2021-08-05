@@ -20,7 +20,6 @@ public class RoundFlow implements IRoundFlow {
 
     @Override
     public String roundFlow(String angle, String velocity) {
-        String messageTerminal = " ";
         int[] target = _targetGenerator.generateTarget();
         System.out.println("Your target is at: " + Arrays.toString(target));
 
@@ -37,12 +36,16 @@ public class RoundFlow implements IRoundFlow {
                 int validVelocity = Integer.parseInt(velocity);
                 boolean validShot = _inputValidator.validateAngleAndVelocityInput(validAngle, validVelocity);
                 if (validShot) {
-                    _shotFlow.shotFlow(validAngle, validVelocity, target);
+                    boolean shotResult =_shotFlow.shotFlow(validAngle, validVelocity, target);
+                    if (shotResult) {
+                        break;
+                    }
                 } else {
                     System.out.println("Please enter valid values for angle and velocity.");
                 }
             }
-            return messageTerminal;
         }
+        return "";
     }
 }
+
