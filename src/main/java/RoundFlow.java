@@ -39,8 +39,8 @@ public class RoundFlow implements IRoundFlow {
                 int validVelocity = Integer.parseInt(velocity);
                 boolean validShot = _inputValidator.validateAngleAndVelocityInput(validAngle, validVelocity);
                 if (validShot) {
-                    boolean shotResult =_shotFlow.shotFlow(validAngle, validVelocity, target);
-                    if (shotResult) {
+                    boolean targetHit =_shotFlow.shotFlow(validAngle, validVelocity, target);
+                    if (targetHit) {
                         break;
                     }
                 } else {
