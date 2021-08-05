@@ -24,10 +24,9 @@ public class ShotFlow implements IShotFlow {
 
         if (targetHit) {
             System.out.print("You've hit your target!!! Yeeeaaaaaahh!");
-            _shotCounter.incrementCounter();
             System.out.println("\nIt took you " + _shotCounter.getCounter() + " shots.");
         } else {
-            System.out.print("You missed, please enter another shot");
+            System.out.print("You missed, please enter another shot\n");
         }
         return targetHit;
     }
