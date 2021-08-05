@@ -25,22 +25,24 @@ public class RoundFlow implements IRoundFlow {
         System.out.println("Your target is at: " + Arrays.toString(target));
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Please enter in an angle between 1-90: ");
-        angle = scanner.nextLine();
-        System.out.print("Please enter in a velocity between 1-20: ");
-        velocity = scanner.nextLine();
+        while(true) {
+            System.out.print("Please enter in an angle between 1-90: ");
+            angle = scanner.nextLine();
+            System.out.print("Please enter in a velocity between 1-20: ");
+            velocity = scanner.nextLine();
 
-        boolean validInput = _integerChecker.isInt(angle, velocity);
-        if (validInput) {
-            int validAngle = Integer.parseInt(angle);
-            int validVelocity = Integer.parseInt(velocity);
-            boolean validShot = _inputValidator.validateAngleAndVelocityInput(validAngle, validVelocity);
-            if (validShot) {
-                _shotFlow.shotFlow(validAngle, validVelocity, target);
-            } else {
-                System.out.println("Please enter valid values for angle and velocity.");
+            boolean validInput = _integerChecker.isInt(angle, velocity);
+            if (validInput) {
+                int validAngle = Integer.parseInt(angle);
+                int validVelocity = Integer.parseInt(velocity);
+                boolean validShot = _inputValidator.validateAngleAndVelocityInput(validAngle, validVelocity);
+                if (validShot) {
+                    _shotFlow.shotFlow(validAngle, validVelocity, target);
+                } else {
+                    System.out.println("Please enter valid values for angle and velocity.");
+                }
             }
+            return messageTerminal;
         }
-        return messageTerminal;
     }
 }
