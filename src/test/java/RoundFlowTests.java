@@ -20,6 +20,18 @@ public class RoundFlowTests {
     private ByteArrayOutputStream testOut;
 
     @BeforeEach
+    public void setup() {
+        mockShotCounter = mock(IShotCounter.class);
+        mockTargetGenerator = mock(ITargetGenerator.class);
+        mockShot = mock(IShot.class);
+        mockIntegerChecker = mock(IIntegerChecker.class);
+        mockJudge = mock(IJudge.class);
+        mockInputValidator = mock(IInputValidator.class);
+        mockShotFlow = mock(IShotFlow.class);
+        roundFlow = new RoundFlow(mockTargetGenerator, mockIntegerChecker, mockInputValidator, mockShotFlow);
+    }
+
+    @BeforeEach
     public void setupOutput() {
         testOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(testOut));
@@ -32,19 +44,6 @@ public class RoundFlowTests {
 
     private String getOutput() {
         return testOut.toString();
-    }
-
-    @BeforeEach
-    public void setup() {
-        mockShotCounter = mock(IShotCounter.class);
-        mockTargetGenerator = mock(ITargetGenerator.class);
-        mockShot = mock(IShot.class);
-        mockIntegerChecker = mock(IIntegerChecker.class);
-        mockJudge = mock(IJudge.class);
-        mockInputValidator = mock(IInputValidator.class);
-        mockShotFlow = mock(IShotFlow.class);
-        roundFlow = new RoundFlow(mockShotCounter, mockTargetGenerator,
-                mockShot, mockIntegerChecker, mockJudge, mockInputValidator, mockShotFlow);
     }
 
     @AfterEach
@@ -62,105 +61,61 @@ public class RoundFlowTests {
         int[] testTarget = {1,2};
         given(mockTargetGenerator.generateTarget()).willReturn(testTarget);
         provideInput(angle + "\n" + velocity);
-        getOutput();
         given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
         given(mockInputValidator.validateAngleAndVelocityInput(45, 10)).willReturn(true);
         given(mockShotFlow.shotFlow(45, 10, testTarget)).willReturn(true);
 
-        roundFlow.roundFlow("45", "1");
+        roundFlow.roundFlow(angle, velocity);
         //then: target method called once
         verify(mockTargetGenerator, times(1)).generateTarget();
     }
 
     @Test
-    public void givenVelocityAndAngleThenShot() {
+    public void givenVelocityAndAngleThenCallShotFlow() {
         //given: I enter a velocity and angle
         String velocity = "1";
         String angle = "45";
-        //when: I call flowClass
-        //then: shot method is called
+        //when: I call the shot flow class
+        int[] testTarget = {1,2};
+        given(mockTargetGenerator.generateTarget()).willReturn(testTarget);
+        provideInput(angle + "\n" + velocity);
         given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
-        System.out.println(roundFlow.roundFlow(angle, velocity));
-        verify(mockShot, times(1)).calculateShot(45, 1);
+        given(mockInputValidator.validateAngleAndVelocityInput(45, 10)).willReturn(true);
+        given(mockShotFlow.shotFlow(45, 10, testTarget)).willReturn(true);
+
+        roundFlow.roundFlow(angle, velocity);
+        //then: shot flow is called 1 time
+        verify(mockShotFlow, times(1)).shotFlow(45, 10, testTarget);
     }
 
     @Test
-    public void givenVelocityAndAngleThenIntCheck() {
-        //given: i enter a velocity and angle
+    public void givenVelocityAndAngleThenCallIntCheck() {
+        //given: I enter a velocity and angle
         String angle = "45";
         String velocity = "1";
-        //when: I call flowClass
+        //when: I call shot flow class
+        int[] testTarget = {1,2};
+        given(mockTargetGenerator.generateTarget()).willReturn(testTarget);
+        provideInput(angle + "\n" + velocity);
+
         roundFlow.roundFlow(angle, velocity);
         //then: IntegerChecker method is called
         verify(mockIntegerChecker, times(1)).isInt(angle, velocity);
     }
 
     @Test
-    public void givenVelocityAndAngleThenCallJudgeMethod() {
-        //given: i enter a velocity and angle
-        String angle = "45";
-        String velocity = "1";
-        //when: I call flowClass
-        roundFlow.roundFlow(angle, velocity);
-        given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
-        given(mockInputValidator.validateAngleAndVelocityInput(45, 1)).willReturn(true);
-        //then: the judge method is called
-        int[] testShot = {1, 2};
-        int[] testTarget = {1, 2};
-        // todo: fix so judge method is called
-        verify(mockJudge, times(1)).judgeShot(testShot, testTarget);
-    }
-
-    @Test
-    public void givenHitThenReturnGetCounterMethod() {
-        //Given: I have a shot that hits
-        int[] testShot = {1, 2};
-        int[] testTarget = {1, 2};
-        //When: I call flowClass
-        roundFlow.roundFlow("1" ,"1");
-        given(mockJudge.judgeShot(testShot,testTarget)).willReturn(true);
-        //Then: The get counter method is called 1 time
-        verify(mockShotCounter, times(1)).getCounter();
-
-    }
-
-    @Test
-    public void givenMissThenIncrementCounterMethod() {
-        //Given: I have a miss
-        int[] testShot = {2, 3};
-        int[] testTarget = {1, 2};
-        //When: I call flowClass
-        roundFlow.roundFlow("1" ,"1");
-        given(mockJudge.judgeShot(testShot,testTarget)).willReturn(false);
-        //Then: The increment counter method is called 1 time
-        verify(mockShotCounter, times(1)).incrementCounter();
-
-    }
-
-
-    @Test
-    public void givenInvalidInputThenNeverCallJudgeMethod() {
-        //given: i enter invalid angle and velocity
-        String angle = "91";
-        String velocity = "0";
-        //when: I call flowClass
-        given(mockInputValidator.validateAngleAndVelocityInput(91, 0)).willReturn(false);
-        roundFlow.roundFlow(angle, velocity);
-        //then: the judge method is never called
-        int[] testShot = {1, 2};
-        int[] testTarget = {1, 2};
-        verify(mockJudge, never()).judgeShot(testShot, testTarget);
-    }
-
-    @Test
-    public void givenInvalidInputThenNoShot() {
-        //given: i enter an invalid velocity and angle
+    public void givenInvalidInputThenShotFlowNeverCalled() {
+        //given: I enter an invalid velocity and angle
         String angle = "abc";
         String velocity = "def";
-        //when: I call flowClass
+        //when: I call the shot flow class
+        int[] testTarget = {1,2};
+        given(mockTargetGenerator.generateTarget()).willReturn(testTarget);
+        provideInput(angle + "\n" + velocity);
         given(mockIntegerChecker.isInt(angle, velocity)).willReturn(false);
+
         roundFlow.roundFlow(angle, velocity);
-        //then: the shot method is never called
-        verify(mockShot, never()).calculateShot(91, 0);
+        //then: the shot flow method is never called
+        verify(mockShotFlow, never()).shotFlow(45, 10, testTarget);
     }
 }
