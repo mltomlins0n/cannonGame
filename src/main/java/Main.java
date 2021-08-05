@@ -6,8 +6,9 @@ public class Main {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
         IRoundFlow roundFlow = applicationContext.getBean("roundFlow", RoundFlow.class);
 
-        System.out.print("Please enter an angle between 1-90 and a velocity between 1-20: ");
+        System.out.print("Cannon Game");
+        System.out.print("\n-------------\n");
 
-        // call flow class here
+        roundFlow.roundFlow("1", "1");
     }
 }
