@@ -84,6 +84,7 @@ public class RoundFlowTests {
         given(mockShotFlow.shotFlow(45, 10, testTarget)).willReturn(true);
 
         roundFlow.roundFlow(angle, velocity);
+
         //then: shot flow is called 1 time
         verify(mockShotFlow, times(1)).shotFlow(45, 10, testTarget);
     }
