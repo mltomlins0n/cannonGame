@@ -7,16 +7,14 @@ public class ShotFlow implements IShotFlow {
     private IShotCounter _shotCounter;
 
     public ShotFlow(IShot shot, IJudge judge, IShotCounter shotCounter) {
-
         this._shot = shot;
         this._judge = judge;
         this._shotCounter = shotCounter;
-
     }
 
     @Override
     public boolean shotFlow(int angle, int velocity, int[] target) {
-        boolean targetHit = false;
+        boolean targetHit;
 
         int[] shot = _shot.calculateShot(angle, velocity);
         _shotCounter.incrementCounter();
