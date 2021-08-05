@@ -143,7 +143,6 @@ public class ShotFlowTests {
         //Then: shotCounter.getCounter is not called
         verify(mockShotCounter, never()).getCounter();
     }
-
 }
 
 
