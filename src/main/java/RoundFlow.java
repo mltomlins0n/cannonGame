@@ -4,23 +4,16 @@ import java.util.Scanner;
 
 public class RoundFlow implements IRoundFlow {
 
-    private IShotCounter _shotCounter;
     private ITargetGenerator _targetGenerator;
-    private IShot _shot;
     private IIntegerChecker _integerChecker;
-    private IJudge _judge;
     private IInputValidator _inputValidator;
     private IShotFlow _shotFlow;
 
-    public RoundFlow(IShotCounter shotCounter, ITargetGenerator targetGenerator,
-                     IShot shot, IIntegerChecker integerChecker,
-                     IJudge judge, IInputValidator inputValidator, IShotFlow shotFlow) {
+    public RoundFlow(ITargetGenerator targetGenerator, IIntegerChecker integerChecker,
+                     IInputValidator inputValidator, IShotFlow shotFlow) {
 
-        this._shotCounter = shotCounter;
         this._targetGenerator = targetGenerator;
-        this._shot = shot;
         this._integerChecker = integerChecker;
-        this._judge = judge;
         this._inputValidator = inputValidator;
         this._shotFlow = shotFlow;
     }
@@ -44,10 +37,9 @@ public class RoundFlow implements IRoundFlow {
             boolean validShot = _inputValidator.validateAngleAndVelocityInput(validAngle, validVelocity);
             if (validShot) {
                 _shotFlow.shotFlow(validAngle, validVelocity, target);
-            }
-            else {
+            } else {
                 System.out.println("Please enter valid values for angle and velocity.");
-        }
+            }
         }
         return messageTerminal;
     }
