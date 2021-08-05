@@ -21,6 +21,9 @@ public class RoundFlow implements IRoundFlow {
     @Override
     public String roundFlow(String angle, String velocity) {
         int[] target = _targetGenerator.generateTarget();
+
+        System.out.print("Cannon Game");
+        System.out.print("\n-------------\n");
         System.out.println("Your target is at: " + Arrays.toString(target));
 
         Scanner scanner = new Scanner(System.in);
