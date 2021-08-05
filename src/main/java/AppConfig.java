@@ -32,7 +32,6 @@ public class AppConfig {
     }
     @Bean(name = "roundFlow")
     public RoundFlow roundFlow(){
-        return new RoundFlow(shotCounter(), generateTarget(), calculateShot(),
-                isInt(), judgeShot(), validateAngleAndVelocityInput(), shotFlow());
+        return new RoundFlow(generateTarget(), isInt(), validateAngleAndVelocityInput(), shotFlow());
     }
 }
