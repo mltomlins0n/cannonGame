@@ -1,7 +1,7 @@
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.*;
+
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
@@ -16,6 +16,24 @@ public class RoundFlowTests {
     IShotFlow mockShotFlow;
     IRoundFlow roundFlow;
 
+    private ByteArrayInputStream testIn;
+    private ByteArrayOutputStream testOut;
+
+    @BeforeEach
+    public void setupOutput() {
+        testOut = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(testOut));
+    }
+
+    private void provideInput(String data) {
+        testIn = new ByteArrayInputStream(data.getBytes());
+        System.setIn(testIn);
+    }
+
+    private String getOutput() {
+        return testOut.toString();
+    }
+
     @BeforeEach
     public void setup() {
         mockShotCounter = mock(IShotCounter.class);
@@ -29,10 +47,26 @@ public class RoundFlowTests {
                 mockShot, mockIntegerChecker, mockJudge, mockInputValidator, mockShotFlow);
     }
 
+    @AfterEach
+    public void restoreSystemInput() {
+        System.setIn(System.in);
+        System.setOut(System.out);
+    }
+
     @Test
     public void givenGameStartThenGetTarget() {
         //given: I start a game
+        String angle = "45";
+        String velocity = "10";
         //when: I call flowClass method
+        int[] testTarget = {1,2};
+        given(mockTargetGenerator.generateTarget()).willReturn(testTarget);
+        provideInput(angle + "\n" + velocity);
+        getOutput();
+        given(mockIntegerChecker.isInt(angle, velocity)).willReturn(true);
+        given(mockInputValidator.validateAngleAndVelocityInput(45, 10)).willReturn(true);
+        given(mockShotFlow.shotFlow(45, 10, testTarget)).willReturn(true);
+
         roundFlow.roundFlow("45", "1");
         //then: target method called once
         verify(mockTargetGenerator, times(1)).generateTarget();
