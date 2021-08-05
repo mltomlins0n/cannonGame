@@ -8,7 +8,7 @@ public class TargetGenerator implements ITargetGenerator {
         int[] target = new int[2];
         target[0] = Math.round(randX);
         target[1] = Math.round(randY);
-
+        
         return target;
     }
 }
