@@ -8,6 +8,7 @@ public class RoundFlow implements IRoundFlow {
     private IIntegerChecker _integerChecker;
     private IInputValidator _inputValidator;
     private IShotFlow _shotFlow;
+    private MongoDB db = new MongoDB();
 
     public RoundFlow(ITargetGenerator targetGenerator, IIntegerChecker integerChecker,
                      IInputValidator inputValidator, IShotFlow shotFlow) {
@@ -20,6 +21,7 @@ public class RoundFlow implements IRoundFlow {
 
     @Override
     public String roundFlow(String angle, String velocity) {
+
         int[] target = _targetGenerator.generateTarget();
 
         System.out.print("Cannon Game");
@@ -41,6 +43,7 @@ public class RoundFlow implements IRoundFlow {
                 if (validShot) {
                     boolean targetHit =_shotFlow.shotFlow(validAngle, validVelocity, target);
                     if (targetHit) {
+                        db.displayLeaderboard();
                         break;
                     }
                 } else {
